@@ -11,6 +11,7 @@ import javafx.scene.transform.Translate;
  */
 public class XOUltimateBoard extends Pane {
     // private fields of the class
+    private GameLogic gameLogic;
     private int[][] bigBoard;
     private XOBoard[][] ultimateBoard;
     private double cell_width, cell_height; // width and height of a cell
@@ -20,25 +21,21 @@ public class XOUltimateBoard extends Pane {
     private final int XPIECE = 1;
     private final int OPIECE = 2;
 
-    // constructor for the class
-    public XOUltimateBoard() {
-        // initialise the boards
+    public XOUltimateBoard(GameLogic gl) {
+        gameLogic = gl;
         bigBoard = new int[3][3];
         ultimateBoard = new XOBoard[3][3];
         for(int i = 0; i < 3; i++)
             for(int j = 0; j < 3; j++) {
                 bigBoard[i][j] = EMPTY;
-                ultimateBoard[i][j] = new XOBoard(this);
+                ultimateBoard[i][j] = new XOBoard(this, gameLogic);
                 getChildren().add(ultimateBoard[i][j]);
             }
         current_player = XPIECE;
     }
-    // we have to override resizing behaviour to make our view appear properly
     @Override
     public void resize(double width, double height) {
-// call the superclass method first
         super.resize(width, height);
-        // figure out the width and height of a cell
         cell_width = width / 3.0;
         cell_height = height / 3.0;
 

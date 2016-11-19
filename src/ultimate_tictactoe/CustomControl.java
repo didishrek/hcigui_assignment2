@@ -18,13 +18,13 @@ public class CustomControl extends Control {
         xoultimateboard = new XOUltimateBoard();
         getChildren().add(xoultimateboard);
         // add a mouse clicked listener that will try to place a piece
-//        setOnMouseClicked(new EventHandler<MouseEvent>() {
-//            // overridden handle method
-//            @Override
-//            public void handle(MouseEvent event) { xoultimateboard.placePiece(event.getX(), event.getY());
-//
-//            }
-//        });
+        setOnMouseClicked(new EventHandler<MouseEvent>() {
+            // overridden handle method
+            @Override
+            public void handle(MouseEvent event) { xoultimateboard.placePiece(event.getX(), event.getY());
+
+            }
+        });
         setOnKeyPressed(new EventHandler<KeyEvent>() {
             // overridden handle method
             @Override

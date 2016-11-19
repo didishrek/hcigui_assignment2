@@ -29,11 +29,9 @@ public class XOUltimateBoard extends Pane {
             for(int j = 0; j < 3; j++) {
                 bigBoard[i][j] = EMPTY;
                 ultimateBoard[i][j] = new XOBoard(this);
-//                ultimateBoard[i][j].resize(cell_width/3, cell_height/3);
-//                ultimateBoard[i][j].relocate(i * cell_width/3, j *
-//                        cell_height/3);
                 getChildren().add(ultimateBoard[i][j]);
             }
+        current_player = XPIECE;
     }
     // we have to override resizing behaviour to make our view appear properly
     @Override
@@ -64,30 +62,16 @@ public class XOUltimateBoard extends Pane {
 
 //
 //    // public method that tries to place a piece
-//    public void placePiece(final double x, final double y) {
-//        // translate the x, y coordinates into cell indexes
-//        int indexx = (int) (x / cell_width);
-//        int indexy = (int) (y / cell_height);
-//        // if the position is empty then place a piece and swap the players
-//        if(bigBoard[indexx][indexy] == EMPTY && current_player == XPIECE) {
-//            bigBoard[indexx][indexy] = XPIECE;
-//            ultimateBoard[indexx][indexy] = new XOBoard(this);
-//            ultimateBoard[indexx][indexy].resize(cell_width, cell_height);
-//            ultimateBoard[indexx][indexy].relocate(indexx * cell_width, indexy *
-//                    cell_height);
-//            getChildren().add(ultimateBoard[indexx][indexy]);
-//            current_player = OPIECE;
-//        }
-//        else if(bigBoard[indexx][indexy] == EMPTY && current_player == OPIECE) {
-//            bigBoard[indexx][indexy] = OPIECE;
-//            ultimateBoard[indexx][indexy] = new XOBoard(this);
-//            ultimateBoard[indexx][indexy].resize(cell_width, cell_height);
-//            ultimateBoard[indexx][indexy].relocate(indexx * cell_width, indexy *
-//                    cell_height);
-//            getChildren().add(ultimateBoard[indexx][indexy]);
-//            current_player = XPIECE;
-//        }
-//    }
+    public void placePiece(final double x, final double y) {
+        // translate the x, y coordinates into cell indexes
+        int indexx = (int) (x / cell_width);
+        int indexy = (int) (y / cell_height);
+
+        ultimateBoard[indexx][indexy].resize(cell_width, cell_height);
+        ultimateBoard[indexx][indexy].relocate(indexx * cell_width, indexy *
+                cell_height);
+        ultimateBoard[indexx][indexy].placePiece(x, y);
+    }
 
     public int getCurrent_player() {
         return current_player;

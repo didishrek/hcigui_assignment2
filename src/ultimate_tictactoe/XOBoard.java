@@ -89,7 +89,6 @@ public class XOBoard extends Pane {
                 }
             }
         }
-        //System.out.println("XOBOARD RESIZE CALLED : " + width + " " + height + " cellwidth = " + cell_width + " cellheight = " + cell_height);
     }
     // public method for resetting the game
     public void resetGame() {
@@ -104,26 +103,27 @@ public class XOBoard extends Pane {
     // public method that tries to place a piece
     public void placePiece(final double x, final double y) {
         // translate the x, y coordinates into cell indexes
-        int indexx = (int) (x / cell_width);
-        int indexy = (int) (y / cell_height);
+        int indexx = ((int) (x / cell_width)) % 3;
+        int indexy = ((int) (y / cell_height)) % 3;
+
         // if the position is empty then place a piece and swap the players
         if(board[indexx][indexy] == EMPTY && xoUltimateBoard.getCurrent_player() == XPIECE) {
-            board[indexx][indexy] = XPIECE;
-            renders[indexx][indexy] = new XOPiece(XPIECE);
-            renders[indexx][indexy].resize(cell_width, cell_height);
-            renders[indexx][indexy].relocate(indexx * cell_width, indexy *
-                    cell_height);
-            getChildren().add(renders[indexx][indexy]);
+            placeThatPiece(indexx, indexy, XPIECE);
             xoUltimateBoard.setCurrent_player(OPIECE);
         }
         else if(board[indexx][indexy] == EMPTY && xoUltimateBoard.getCurrent_player() == OPIECE) {
-            board[indexx][indexy] = OPIECE;
-            renders[indexx][indexy] = new XOPiece(OPIECE);
-            renders[indexx][indexy].resize(cell_width, cell_height);
-            renders[indexx][indexy].relocate(indexx * cell_width, indexy *
-                    cell_height);
-            getChildren().add(renders[indexx][indexy]);
+            placeThatPiece(indexx, indexy, OPIECE);
             xoUltimateBoard.setCurrent_player(XPIECE);
         }
     }
+
+    private void placeThatPiece(int indexx, int indexy, int piece) {
+        board[indexx][indexy] = piece;
+        renders[indexx][indexy] = new XOPiece(piece);
+        renders[indexx][indexy].resize(cell_width, cell_height);
+        renders[indexx][indexy].relocate(indexx * cell_width, indexy * cell_height);
+        getChildren().add(renders[indexx][indexy]);
+
+    }
+
 }

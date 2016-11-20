@@ -100,4 +100,11 @@ public class GameLogic {
     public void setEverywhere(boolean everywhere) {
         this.everywhere = everywhere;
     }
+
+    public void resetGame(){
+        resetPoints();
+        everywhere = true;
+        lastX = -1;
+        lastY = -1;
+    }
 }

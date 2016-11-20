@@ -36,7 +36,8 @@ public class XOUltimateBoard extends Pane {
     }
 
     public void resetGame() {
-        gameLogic.resetPoints();
+        current_player = 1;
+        gameLogic.resetGame();
         for(int i = 0; i < 3; i++) {
             for(int j = 0; j < 3; j++) {
                 ultimateBoard[i][j].resetGame();

@@ -2,6 +2,7 @@ package ultimate_tictactoe;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Translate;
@@ -76,6 +77,27 @@ public class XOBoard extends Pane {
 
     public void resetGame() {
         winner = 0;
+        removeXO();
+        back.setFill(Color.BLACK);
+        h1.setStroke(Color.WHITE); h2.setStroke(Color.WHITE);
+        v1.setStroke(Color.WHITE); v2.setStroke(Color.WHITE);
+    }
+
+    public void winnerscolor(){
+        removeXO();
+        Paint color;
+        if (winner == 1)
+            color = Color.RED;
+        else if( winner == 2)
+            color = Color.LIME;
+        else
+            color = Color.BLUE;
+        back.setFill(color);
+        h1.setStroke(color); h2.setStroke(color);
+        v1.setStroke(color); v2.setStroke(color);
+    }
+
+    public void removeXO(){
         for(int i = 0; i < 3; i++) {
             for(int j = 0; j < 3; j++) {
                 board[i][j] = 0;
@@ -95,7 +117,6 @@ public class XOBoard extends Pane {
             return;
         }
         gameLogic.setLastXY(indexx, indexy);
-        //gameLogic.setEverywhere(false);
         if(board[indexx][indexy] == EMPTY && xoUltimateBoard.getCurrent_player() == XPIECE) {
             placeThatPiece(indexx, indexy, XPIECE);
             xoUltimateBoard.setCurrent_player(OPIECE);
@@ -107,6 +128,7 @@ public class XOBoard extends Pane {
         winner = gameLogic.checkWinner(this.board);
         if (winner != 0) {
             gameLogic.setEverywhere(true);
+            winnerscolor();
         }
     }
 

@@ -92,7 +92,6 @@ public class XOUltimateBoard extends Pane {
             } else{
                 displayMessage("You are losers!");
             }
-            return;
         }
     }
 

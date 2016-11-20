@@ -7,7 +7,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Translate;
 
 /**
- * Created by 42900 on 01/11/2016.
+ * Created by Adrien Schricke on 01/11/2016.
  */
 public class XOBoard extends Pane {
     private XOUltimateBoard xoUltimateBoard;
@@ -21,6 +21,7 @@ public class XOBoard extends Pane {
     private final int EMPTY = 0;
     private final int XPIECE = 1;
     private final int OPIECE = 2;
+    private int winner;
 
     public XOBoard(XOUltimateBoard xoub, GameLogic gl) {
         gameLogic = gl;
@@ -55,18 +56,12 @@ public class XOBoard extends Pane {
 
     @Override
     public void resize(double width, double height) {
-
         super.resize(width, height);
-
         cell_width = width / 3.0;
         cell_height = height / 3.0;
-
-
         back.setWidth(width); back.setHeight(height);
-
         ch_one.setY(cell_height); ch_two.setY(2 * cell_height);
         h1.setEndX(width); h2.setEndX(width);
-
         cw_one.setX(cell_width); cw_two.setX(2 * cell_width);
         v1.setEndY(height); v2.setEndY(height);
         for(int i = 0; i < 3; i++) {
@@ -78,7 +73,9 @@ public class XOBoard extends Pane {
             }
         }
     }
+
     public void resetGame() {
+        winner = 0;
         for(int i = 0; i < 3; i++) {
             for(int j = 0; j < 3; j++) {
                 board[i][j] = 0;
@@ -87,10 +84,18 @@ public class XOBoard extends Pane {
             }
         }
     }
+
     public void placePiece(final double x, final double y) {
         int indexx = ((int) (x / cell_width)) % 3;
         int indexy = ((int) (y / cell_height)) % 3;
 
+
+        if (winner != 0){
+            //Prevents play after winning
+            return;
+        }
+        gameLogic.setLastXY(indexx, indexy);
+        //gameLogic.setEverywhere(false);
         if(board[indexx][indexy] == EMPTY && xoUltimateBoard.getCurrent_player() == XPIECE) {
             placeThatPiece(indexx, indexy, XPIECE);
             xoUltimateBoard.setCurrent_player(OPIECE);
@@ -99,9 +104,9 @@ public class XOBoard extends Pane {
             placeThatPiece(indexx, indexy, OPIECE);
             xoUltimateBoard.setCurrent_player(XPIECE);
         }
-        int winner = gameLogic.checkWinner(this.board);
-        if (winner != 0){
-            System.out.println("Winner = " + winner);
+        winner = gameLogic.checkWinner(this.board);
+        if (winner != 0) {
+            gameLogic.setEverywhere(true);
         }
     }
 
@@ -111,7 +116,9 @@ public class XOBoard extends Pane {
         renders[indexx][indexy].resize(cell_width, cell_height);
         renders[indexx][indexy].relocate(indexx * cell_width, indexy * cell_height);
         getChildren().add(renders[indexx][indexy]);
-
     }
 
+    public int getWinner() {
+        return winner;
+    }
 }

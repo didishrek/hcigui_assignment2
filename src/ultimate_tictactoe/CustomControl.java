@@ -7,7 +7,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 /**
- * Created by 42900 on 12/11/2016.
+ * Created by Adrien Schricke on 12/11/2016.
  */
 public class CustomControl extends Control {
     private XOUltimateBoard xoultimateboard;

@@ -1,6 +1,5 @@
 package ultimate_tictactoe;
 
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;

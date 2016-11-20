@@ -1,6 +1,9 @@
 package ultimate_tictactoe;
 
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
 /**
  * Created by Adrien Schricke on 01/11/2016.
@@ -10,6 +13,7 @@ public class XOUltimateBoard extends Pane {
     private XOBoard[][] ultimateBoard;
     private double cell_width, cell_height;
     private int current_player;
+    private Label winner_message;
 
     public XOUltimateBoard(GameLogic gl) {
         gameLogic = gl;
@@ -38,6 +42,7 @@ public class XOUltimateBoard extends Pane {
     public void resetGame() {
         current_player = 1;
         gameLogic.resetGame();
+        getChildren().remove(winner_message);
         for(int i = 0; i < 3; i++) {
             for(int j = 0; j < 3; j++) {
                 ultimateBoard[i][j].resetGame();
@@ -53,6 +58,23 @@ public class XOUltimateBoard extends Pane {
         if (gameLogic.isAuthorizedBoard(this.ultimateBoard, indexx, indexy)){
             ultimateBoard[indexx][indexy].placePiece(x, y);
             gameLogic.countPoint(ultimateBoard);
+        }
+        if (gameLogic.isFinished()){
+            int winner = gameLogic.getUltimateWinner();
+            winner = 0;
+            if (winner != 0){
+                winner_message = new Label("Player " + winner + " wins !");
+                winner_message.setAlignment(Pos.CENTER);
+                System.out.println("Player " + winner + " wins !");
+                winner_message.setTextFill(Color.WHITE);
+                getChildren().add(winner_message);
+            } else{
+                winner_message = new Label("You are loosers !!!");
+                System.out.println("You are loosers !!!");
+                winner_message.setAlignment(Pos.CENTER);
+                winner_message.setTextFill(Color.WHITE);
+                getChildren().add(winner_message);
+            }
         }
     }
 

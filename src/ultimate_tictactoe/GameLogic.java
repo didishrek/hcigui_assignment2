@@ -10,6 +10,7 @@ public class GameLogic {
     private int lastX = -1;
     private int lastY = -1;
     private boolean everywhere = true;
+    private boolean finished = true;
 
     public GameLogic() {
         resetPoints();
@@ -52,8 +53,10 @@ public class GameLogic {
 
     public void countPoint(XOBoard[][] ultimateBoard){
         resetPoints();
+        int count = 0;
         for (int i = 0; i < 3; ++i){
             for (int j = 0; j < 3 ; ++j){
+                if (ultimateBoard[i][j].getWinner() != 0) count++;
                 if (ultimateBoard[i][j].getWinner() == 1){
                     pointPlayer1++;
                 } else if (ultimateBoard[i][j].getWinner() == 2){
@@ -61,6 +64,8 @@ public class GameLogic {
                 }
             }
         }
+        if (count == 9)
+            finished = true;
     }
 
     public void resetPoints(){
@@ -77,6 +82,8 @@ public class GameLogic {
     }
 
     public boolean isAuthorizedBoard(XOBoard[][] ultimateBoard, int indexX, int indexY){
+        if (finished)
+            return false;
         int winner = ultimateBoard[indexX][indexY].getWinner();
         if (everywhere){
             everywhere = false;
@@ -106,5 +113,10 @@ public class GameLogic {
         everywhere = true;
         lastX = -1;
         lastY = -1;
+        finished = false;
+    }
+
+    public boolean isFinished() {
+        return finished;
     }
 }

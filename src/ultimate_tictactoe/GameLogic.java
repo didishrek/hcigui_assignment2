@@ -10,7 +10,7 @@ public class GameLogic {
     private int lastX = -1;
     private int lastY = -1;
     private boolean everywhere = true;
-    private boolean finished = true;
+    private boolean finished = false;
 
     public GameLogic() {
         resetPoints();

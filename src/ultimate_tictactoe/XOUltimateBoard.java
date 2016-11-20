@@ -81,22 +81,19 @@ public class XOUltimateBoard extends Pane {
         int indexx = (int) (x / cell_width);
         int indexy = (int) (y / cell_height);
 
-
         if (gameLogic.isAuthorizedBoard(this.ultimateBoard, indexx, indexy)){
             ultimateBoard[indexx][indexy].placePiece(x, y);
             gameLogic.countPoint(ultimateBoard);
         }
+
         if (gameLogic.isFinished()){
             int winner = gameLogic.getUltimateWinner();
             if (winner != 0){
-                winner_message = new Label("Player " + winner + " wins !");
-                winner_message.setTextFill(Color.WHITE);
-                getChildren().add(winner_message);
+                displayMessage("Player " + winner + " wins !");
             } else{
-                winner_message = new Label("You are losers !!!");
-                winner_message.setTextFill(Color.WHITE);
-                getChildren().add(winner_message);
+                displayMessage("You are losers!");
             }
+            return;
         }
     }
 
@@ -108,4 +105,9 @@ public class XOUltimateBoard extends Pane {
         this.current_player = current_player;
     }
 
+    public void displayMessage(String msg){
+        winner_message = new Label(msg);
+        winner_message.setTextFill(Color.WHITE);
+        getChildren().add(winner_message);
+    }
 }

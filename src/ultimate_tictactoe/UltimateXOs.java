@@ -21,9 +21,8 @@ public class UltimateXOs extends Application {
 
     public void start(Stage stage){
         stage.setTitle(WINDOW_NAME);
-        stage.setScene(new Scene(sp_mainlayout, 400, 300));
+        stage.setScene(new Scene(sp_mainlayout, 400, 400));
         stage.show();
-
     }
 
     public void stop(){

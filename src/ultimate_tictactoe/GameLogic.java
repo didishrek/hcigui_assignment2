@@ -18,14 +18,14 @@ public class GameLogic {
 
     public int checkWinner(int[][] table){
         //check column
-            for( int i = 0 ; i < 3; ++i){
-                if ((table[i][0] == table[i][1]) &&  (table[i][0] == table[i][2]) && (table[i][0] != 0)){
-                    return (table[i][0]);
-                }
+        for( int i = 0 ; i < 3; ++i){
+            if ((table[i][0] == table[i][1]) &&  (table[i][0] == table[i][2]) && (table[i][0] != 0)){
+                return (table[i][0]);
             }
+        }
         //check line
         for( int i = 0 ; i < 3; ++i){
-            if ((table[0][i] == table[1][i]) &&  (table[0][i] == table[2][i]) && (table[i][0] != 0)){
+            if ((table[0][i] == table[1][i]) &&  (table[0][i] == table[2][i]) && (table[0][i] != 0)){
                 return (table[0][i]);
             }
         }
@@ -89,6 +89,7 @@ public class GameLogic {
             everywhere = false;
             return true;
         } else if(lastX == indexX && lastY == indexY && winner == 0){
+
             everywhere = false;
             return true;
         } else if (ultimateBoard[lastX][lastY].getWinner() != 0) {

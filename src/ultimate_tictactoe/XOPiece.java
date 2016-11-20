@@ -44,8 +44,8 @@ public class XOPiece extends Group {
             l1.setEndX(width); l1.setEndY(height);
             l2.setStartX(width); l2.setEndY(height);
         } else {
-            e.setCenterX(width / 2); e.setCenterY(height / 2);
-            e.setRadiusX(width / 2); e.setRadiusY(height / 2);
+            e.setCenterX((width / 2)-1); e.setCenterY((height / 2)-1);
+            e.setRadiusX((width / 2)-1); e.setRadiusY((height / 2)-1);
         }
     }
 
